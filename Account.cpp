@@ -1,4 +1,6 @@
 #include "Account.h"
+
+// C'TORS
 Account::Account() {}
 Account::Account(Person** persons, int count, double balance) {}
 Account::Account(const Person& person, double balance) {}
@@ -6,6 +8,7 @@ Account::Account(const Account& other) {}
 Account::~Account() {}
 
 
+// SETTERS
 void	Account::SetPersons(Person** persons, int count) {}
 void	Account::SetAccountNumber(int number) {}
 void		Account::SetBalance(double balance){}
@@ -17,6 +20,7 @@ int Account::GetTotalPersons()const { return 0; }
 int			Account::GetAccountNumber() const { return 0; }
 double		Account::GetBalance() const { return 0; }
 
+// HELPERS
 void Account::Withdraw(double amount, const char* date){}
 void Account::Deposit(double amount, const char* date){}
 void Account::AddPerson(const Person& newPerson, double	amount){}

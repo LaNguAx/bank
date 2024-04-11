@@ -4,8 +4,14 @@ using namespace std;
 
 int main() //Train
 {
-	Bank bank( "The First International Bank of Israel​ Ltd", 31 );
-	Account account;
+	// PERSON TESTING:
+	Person p1;
+	Person p2("Itay Aknin", 322959412);
+	Person p3(p2);
+
+
+	//Bank bank( "The First International Bank of Israel​ Ltd", 31 );
+	//Account account;
 	//Person lior( "Lior Li", 20145876 );
 	//Person liam( "Liam Winter", 2048741 );
 	//int countNumberOfUsers = account.GetTotalPersons();
