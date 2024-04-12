@@ -5,10 +5,26 @@ using namespace std;
 int main() //Train
 {
 	// PERSON TESTING:
-	Person p1;
-	Person p2("Itay Aknin", 322959412);
-	Person p3(p2);
+	//Person p1;
+	//Person p2("Itay Aknin", 322959412);
+	//Person p3(p2);
 
+	// ACCOUNT TESTING:
+	Person* persons[3];
+	persons[0] = new Person("Lior Li", 20145876);
+	persons[1] = new Person("Liam Winter", 2048741);
+	persons[2] = new Person("Jordi Alabit", 573851853);
+
+	//Account a(persons, 2, (double) 5);
+	Account b(*persons[0], 500);
+	b.AddPerson(*persons[1], 1000);
+	b.DeletePerson(*persons[1]);
+	b.DeletePerson(*persons[1]);
+	b.DeletePerson(*persons[0]);
+	b.DeletePerson(*persons[0]);
+
+	b.AddPerson(*persons[0],500);
+	b.AddPerson(*persons[1],1000 );
 
 	//Bank bank( "The First International Bank of Israel​ Ltd", 31 );
 	//Account account;

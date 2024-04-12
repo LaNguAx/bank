@@ -1,6 +1,7 @@
 #include "Person.h"
 
 Person::Person():m_name(nullptr),m_id(NULL){}
+
 Person::Person(const char* name, int id){
 	this->SetName(name);
 	this->SetId(id);
@@ -13,11 +14,10 @@ Person::Person(const Person& other){
 Person::~Person(){
 	
 	delete[] m_name;
+	m_name = nullptr;
 	m_id = NULL;
-
+	
 }
-
-
 
 void Person::SetName(const char* newName){
 	
