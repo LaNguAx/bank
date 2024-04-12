@@ -10,12 +10,13 @@ int main() //Train
 	//Person p3(p2);
 
 	// ACCOUNT TESTING:
-	Person* persons[3];
+	Person** persons = new Person*[3];
 	persons[0] = new Person("Lior Li", 20145876);
 	persons[1] = new Person("Liam Winter", 2048741);
 	persons[2] = new Person("Jordi Alabit", 573851853);
 
 	//Account a(persons, 2, (double) 5);
+	Account a(persons, 3, 1750);
 	Account b(*persons[0], 500);
 	b.AddPerson(*persons[1], 1000);
 	b.DeletePerson(*persons[1]);
@@ -24,7 +25,54 @@ int main() //Train
 	b.DeletePerson(*persons[0]);
 
 	b.AddPerson(*persons[0],500);
-	b.AddPerson(*persons[1],1000 );
+	b.AddPerson(*persons[1], 1000);
+	b.AddPerson(*persons[1], 1000);
+	b.AddPerson(*persons[1], 1000);
+	b.DeletePerson(*persons[1]);
+	b.DeletePerson(*persons[0]);
+	b.DeletePerson(*persons[1]);
+	b.DeletePerson(*persons[0]);
+	b.DeletePerson(*persons[1]);
+	b.DeletePerson(*persons[0]);
+
+
+	// TRANSACTION TESTING:
+	Transaction** transactions =  new Transaction*[4];
+	transactions[0] = new Transaction (&a, &b, 500, "today");
+	transactions[1] = new Transaction (&b, &b, 800, "yesterday");
+	transactions[2] = new Transaction (&b, &a, 1200, "10/4");
+	transactions[3] = new Transaction (&a, &b, -55500, "7/4");
+
+	//b.AddTransaction(*transactions[0]);
+	//b.AddTransaction(*transactions[1]);
+	//b.AddTransaction(*transactions[2]);
+	//b.AddTransaction(*transactions[3]);
+	//b.AddTransaction(*transactions[2]);
+
+	//a.SetTransactions(transactions, 4);
+	//b.clearTransactions();
+
+	// b balance
+	std::cout << b.GetBalance()<< std::endl;
+	// a balance
+	std::cout << a.GetBalance() << std::endl;
+
+	b.AddTransaction(*transactions[0]);
+
+	// b balance
+	std::cout << b.GetBalance() << std::endl;
+	// a balance
+	std::cout << a.GetBalance() << std::endl;
+
+
+	b.Withdraw(2500, "12/4");
+	// b balance
+	std::cout << b.GetBalance() << std::endl;
+
+
+	Account c(a);
+	std::cout << c.GetBalance() << std::endl;
+
 
 	//Bank bank( "The First International Bank of Israel​ Ltd", 31 );
 	//Account account;

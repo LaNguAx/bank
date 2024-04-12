@@ -20,8 +20,10 @@ public:
 	void			SetAccountNumber( int number );
 	void			SetBalance( double balance );
 	void			SetTransactions( Transaction** newTransaction, int count );
-	Transaction**	GetTransactions();
-	int				GetNumOfTransactions();
+	// i added const here because there's no reason not to.
+	// in getransactions and getnumoftransaction, becuz c'ctor will not work.
+	Transaction**	GetTransactions() const;
+	int				GetNumOfTransactions() const;
 	Person**		GetPersons() const;
 	int				GetTotalPersons()const;
 	int				GetAccountNumber() const;
