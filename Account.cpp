@@ -85,10 +85,10 @@ void Account::SetAccountNumber(int number) {
 
 	if (number > 0) { m_accountNumber = number; return; }
 
-	for (int i = 0; i < m_totalPersons; i++) {
-		number += m_persons[i]->GetId();
-	}
-	m_accountNumber = number / 10;
+	//for (int i = 0; i < m_totalPersons; i++) {
+	//	number += m_persons[i]->GetId();
+	//}
+	m_accountNumber = this->GetPersons()[0]->GetId() / 10;
 }
 
 void Account::SetBalance(double balance) { 	m_balance = balance; }
@@ -131,6 +131,8 @@ void Account::Deposit(double amount, const char* date) {
 void Account::AddPerson(const Person& newPerson, double	amount){
 
 	int totalPersons = this->GetTotalPersons();
+
+	if (totalPersons == 0) this->SetAccountNumber(newPerson.GetId());
 
 	// check if person already exists
 	bool found = false;

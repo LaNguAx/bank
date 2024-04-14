@@ -66,7 +66,7 @@ void Bank::AddAccount(const Account& account) {
 	// check if account exists.
 	for (int i = 0; i < numOfAccounts; i++)
 		// same account
-		if (accounts[i]->GetAccountNumber() == account.GetAccountNumber())
+		if (accounts[i]->GetAccountNumber() == account.GetPersons()[0]->GetId())
 			return;
 
 	Account** temp = new Account * [numOfAccounts + 1];
