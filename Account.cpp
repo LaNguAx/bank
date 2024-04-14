@@ -1,5 +1,10 @@
 #include "Account.h"
 
+/*
+	Itay Andre Aknin
+*/
+
+
 // C'TORS
 Account::Account()
 	: m_transactionList(nullptr), m_numberOfTransaction(0),
@@ -28,8 +33,8 @@ Account::Account(const Account& other)
 	: m_transactionList(nullptr), m_numberOfTransaction(0),
 	m_persons(nullptr), m_totalPersons(0), m_accountNumber(0), m_balance(0) {
 
-	int otherTransactionsCount = other.GetNumOfTransactions();
-	Transaction** otherTransactions = other.GetTransactions();
+ 	 int otherTransactionsCount = other.m_numberOfTransaction;
+	 Transaction** otherTransactions = other.m_transactionList;
 
 	// copy transactions
 	int numOfTransactions = 0;
@@ -39,7 +44,6 @@ Account::Account(const Account& other)
 		++numOfTransactions;
 	}
 	this->SetTransactions(tempTransactions, numOfTransactions);
-
 
 	int otherPersonCount = other.GetTotalPersons();
 	Person** otherPersons = other.GetPersons();
@@ -107,9 +111,9 @@ void Account::SetTransactions(Transaction** newTransaction, int count) {
 
 }
 
-Transaction** Account::GetTransactions() const { return m_transactionList; }
+Transaction** Account::GetTransactions()  { return m_transactionList; }
 
-int Account::GetNumOfTransactions() const { return m_numberOfTransaction; }
+int Account::GetNumOfTransactions()  { return m_numberOfTransaction; }
 
 Person** Account::GetPersons() const { return m_persons; }
 

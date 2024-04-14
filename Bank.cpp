@@ -1,7 +1,7 @@
 #include "Bank.h"
 
 Bank::Bank()
-	: m_name(nullptr), m_account(nullptr), m_bankCode(NULL), m_numbeOfAccounts(0), m_totalBalance(0){}
+	: m_name(nullptr), m_account(nullptr), m_bankCode(0), m_numbeOfAccounts(0), m_totalBalance(0){}
 
 Bank::Bank(const char* name, int code)
 	:m_numbeOfAccounts(0), m_totalBalance(0) {
@@ -28,7 +28,8 @@ void Bank::SetBankName(const char* name){
 
 	int nameLen = strlen(name) + 1;
 	char* newName = new char[nameLen];
-	strcpy_s(newName, nameLen, name);
+	//strcpy_s(newName, nameLen, name);
+	strcpy(newName, name);
 
 	m_name = newName;
 }

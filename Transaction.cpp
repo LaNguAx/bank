@@ -1,5 +1,10 @@
 #include "Transaction.h"
 
+/*
+	Itay Andre Aknin
+*/
+
+
 Transaction::Transaction(Account* s, Account* d, double amount, const char* date)
 	: m_source(nullptr), m_destination(nullptr), m_amount(0.0), m_date(nullptr) {
 		
@@ -35,7 +40,8 @@ void Transaction::SetDate(const char* date){
 
 	int dateLen = strlen(date) + 1;
 	char* newDate = new char[dateLen];
-	strcpy_s(newDate, dateLen, date);
+	//strcpy_s(newDate, dateLen, date);
+	strcpy(newDate, date);
 
 	m_date = newDate;
 

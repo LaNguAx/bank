@@ -1,6 +1,11 @@
 #include "Person.h"
 
-Person::Person():m_name(nullptr),m_id(NULL){}
+/*
+	Itay Andre Aknin
+*/
+
+
+Person::Person():m_name(nullptr),m_id(0){}
 
 Person::Person(const char* name, int id){
 	this->SetName(name);
@@ -15,7 +20,7 @@ Person::~Person(){
 	
 	delete[] m_name;
 	m_name = nullptr;
-	m_id = NULL;
+	m_id = 0;
 	
 }
 
@@ -24,8 +29,8 @@ void Person::SetName(const char* newName){
 	int newNameLen = strlen(newName) + 1;
 
 	m_name = new char[newNameLen];
-	strcpy_s(m_name, newNameLen, newName);
-
+	//strcpy_s(m_name, newNameLen, newName);
+	strcpy(m_name, newName);
 }
 
 void Person::SetId(int newId) { m_id = newId; }

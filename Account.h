@@ -22,8 +22,8 @@ public:
 	void			SetTransactions( Transaction** newTransaction, int count );
 	// i added const here because there's no reason not to.
 	// in getransactions and getnumoftransaction, becuz c'ctor will not work.
-	Transaction**	GetTransactions() const;
-	int				GetNumOfTransactions() const;
+	Transaction**	GetTransactions();
+	int				GetNumOfTransactions();
 	Person**		GetPersons() const;
 	int				GetTotalPersons()const;
 	int				GetAccountNumber() const;
