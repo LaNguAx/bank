@@ -3,27 +3,30 @@
 // C'TORS
 Account::Account()
 	: m_transactionList(nullptr), m_numberOfTransaction(0),
-	m_persons(nullptr), m_totalPersons(0), m_accountNumber(NULL), m_balance(0) {}
-
+	m_persons(nullptr), m_totalPersons(0), m_accountNumber(0), m_balance(0) {}
 
 Account::Account(Person** persons, int count, double balance)
-	: m_transactionList(nullptr), m_numberOfTransaction(0) {
+	: m_transactionList(nullptr), m_numberOfTransaction(0),
+	m_persons(nullptr), m_totalPersons(0), m_accountNumber(0), m_balance(0) {
 
 	this->SetPersons(persons, count); 
-	this->SetAccountNumber(m_persons[0]->GetId());
+	this->SetAccountNumber(this->GetAccountNumber());
 	this->SetBalance(balance);
 }
 
 Account::Account(const Person& person, double balance)
-	: m_transactionList(nullptr), m_numberOfTransaction(0) {
+	: m_transactionList(nullptr), m_numberOfTransaction(0),
+	m_persons(nullptr), m_totalPersons(0), m_accountNumber(0), m_balance(0) {
 
 	this->AddPerson(person, balance);
-	this->SetAccountNumber(m_persons[0]->GetId());
+	this->SetAccountNumber(this->GetAccountNumber());
 	this->SetBalance(balance);
 
 }
 
-Account::Account(const Account& other) {
+Account::Account(const Account& other)
+	: m_transactionList(nullptr), m_numberOfTransaction(0),
+	m_persons(nullptr), m_totalPersons(0), m_accountNumber(0), m_balance(0) {
 
 	int otherTransactionsCount = other.GetNumOfTransactions();
 	Transaction** otherTransactions = other.GetTransactions();
@@ -63,7 +66,10 @@ Account::~Account() {
 // SETTERS
 void Account::SetPersons(Person** persons, int count) {
 	
-	if (!persons || count <= 0) return;
+	if (!persons || count < 0) {
+		m_persons = nullptr;
+		m_totalPersons = 0;
+	}
 
 	m_persons = persons;
 	m_totalPersons = count;
@@ -77,7 +83,7 @@ void Account::SetPersons(Person** persons, int count) {
 
 void Account::SetAccountNumber(int number) {
 
-	if (!m_totalPersons) m_accountNumber = number;
+	if (number > 0) { m_accountNumber = number; return; }
 
 	for (int i = 0; i < m_totalPersons; i++) {
 		number += m_persons[i]->GetId();
@@ -85,13 +91,7 @@ void Account::SetAccountNumber(int number) {
 	m_accountNumber = number / 10;
 }
 
-
-void Account::SetBalance(double balance) { 
-	
-	if (balance == 0) return;
-
-	m_balance = balance;
-}
+void Account::SetBalance(double balance) { 	m_balance = balance; }
 
 void Account::SetTransactions(Transaction** newTransaction, int count) { 
 	if (!newTransaction || count <= 0) return;
@@ -148,23 +148,11 @@ void Account::AddPerson(const Person& newPerson, double	amount){
 	for (int i = 0; i < totalPersons; i++)
 		temp[i] = new Person(*m_persons[i]);
 
-	/*// delete all persons from m_persons;
-	for (int i = 0; i < totalPersons; i++) 
-		delete m_persons[i];
-
-	delete[] m_persons;
-	m_persons = nullptr;*/
 	this->clearPersons();
-
 
 	temp[totalPersons] = new Person(newPerson);
 	this->SetPersons(temp, totalPersons + 1);
-	//m_persons = temp;
-	//m_persons[m_totalPersons++] = new Person(newPerson);
 	
-	// if no amount was set when adding person, for e.g. when pasing person** to account ctor.
-	//if (amount == 0) return;
-
 	this->SetBalance(this->GetBalance() + amount);
 
 }
@@ -183,6 +171,12 @@ void Account::DeletePerson(const Person& oldPerson){
 
 	if (!found) return;
 
+	// if last person is to be deleted
+	if (totalPersons - 1 <= 0) {
+		this->clearPersons();
+		return;
+	}
+
 	Person** temp = new Person*[totalPersons - 1];
 	if (!temp) throw "error allocating temp";
 	
@@ -193,7 +187,7 @@ void Account::DeletePerson(const Person& oldPerson){
 		// found person to delete so dont copy him.
 		if (m_persons[i]->GetId() == oldPerson.GetId()) continue;
 
-		temp[k] = new Person(*m_persons[k]);
+		temp[k] = new Person(*m_persons[i]);
 		k++;
 	}
 
@@ -206,10 +200,11 @@ void Account::DeletePerson(const Person& oldPerson){
 	m_persons = nullptr;*/
 	this->clearPersons();
 
-	--m_totalPersons;
-	if (m_totalPersons == 0) return;
+	this->SetPersons(temp, totalPersons - 1);
+	//--m_totalPersons;
+	//if (this->GetTotalPersons() == 0) return;
 
-	m_persons = temp;
+	//m_persons = temp;
 
 }
 
@@ -290,10 +285,13 @@ void Account::clearPersons() {
 
 	// delete old array
 	for (int i = 0; i < totalPersons; i++)
-		delete m_persons[i];
+		delete m_persons[i];	
+
 
 	// avoid dangling pointer
 	delete[] m_persons;
 	m_persons = nullptr;
+
+	this->SetPersons(m_persons, 0);
 
 }
